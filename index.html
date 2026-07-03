@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bundagizi Labs — AI Healthcare for Indonesian Families</title>
+  <meta name="description" content="Building AI Healthcare Assistants for Indonesian Families. Explore BundaGizi, AsistenDiet, and MinumObat.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green: #52B788;
+      --green-light: #D8F3DC;
+      --green-dark: #1B4332;
+      --orange: #F4A261;
+      --lime: #A7E46B;
+      --blue: #2F80ED;
+      --blue-light: #EAF4FF;
+      --bg: #FAFAFA;
+      --white: #FFFFFF;
+      --gray-50: #F8F9FA;
+      --gray-100: #F1F3F5;
+      --gray-200: #E9ECEF;
+      --gray-300: #DEE2E6;
+      --gray-400: #ADB5BD;
+      --gray-500: #868E96;
+      --gray-600: #495057;
+      --gray-700: #343A40;
+      --gray-800: #212529;
+      --text: #1A1A2E;
+      --text-muted: #6B7280;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 10px 15px -3px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 25px -5px rgba(0,0,0,0.06), 0 20px 40px -10px rgba(0,0,0,0.06);
+      --shadow-xl: 0 20px 50px -12px rgba(0,0,0,0.1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(250, 250, 250, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+    }
+    nav.scrolled { box-shadow: var(--shadow-sm); }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--green-dark);
+    }
+    .nav-logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+    .nav-logo-text {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo-text span { color: var(--green); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--green-dark);
+      background: var(--green-light);
+    }
+    .nav-cta {
+      background: var(--green) !important;
+      color: var(--white) !important;
+      padding: 8px 20px !important;
+    }
+    .nav-cta:hover {
+      background: #45a07a !important;
+      color: var(--white) !important;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 32px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot grid background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--gray-300) 0.8px, transparent 0.8px);
+      background-size: 28px 28px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -200px;
+      right: -200px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(82, 183, 136, 0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left { max-width: 560px; }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-light);
+      color: var(--green-dark);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(36px, 5.5vw, 60px);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--green-dark);
+      letter-spacing: -1.5px;
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero-desc {
+      font-size: clamp(16px, 1.8vw, 19px);
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green);
+      color: var(--white);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(82, 183, 136, 0.3);
+    }
+    .btn-primary:hover {
+      background: #45a07a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(82, 183, 136, 0.35);
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      color: var(--gray-700);
+      padding: 14px 32px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: 1px solid var(--gray-200);
+    }
+    .btn-secondary:hover {
+      border-color: var(--gray-300);
+      background: var(--gray-50);
+      transform: translateY(-1px);
+    }
+
+    /* Ecosystem SVG */
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .ecosystem-svg {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+    }
+    .eco-node {
+      transition: all 0.3s;
+    }
+    .eco-node:hover .eco-circle {
+      filter: brightness(1.1);
+      transform: scale(1.08);
+    }
+    .eco-circle {
+      transition: all 0.3s;
+      transform-origin: center;
+    }
+    .eco-line {
+      stroke-dasharray: 6 4;
+      animation: dashFlow 2s linear infinite;
+    }
+    @keyframes dashFlow {
+      to { stroke-dashoffset: -20; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .eco-line { animation: none; }
+    }
+
+    /* ── Trust Section ── */
+    .trust {
+      padding: 48px 32px;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+      background: var(--white);
+    }
+    .trust-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+    .trust-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-500);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .trust-items {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray-600);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .trust-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+    }
+
+    /* ── Products Section ── */
+    .products {
+      padding: 100px 32px 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .product-card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 0;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Animated top stripe */
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateX(-50%);
+    }
+    .product-card:hover::before {
+      width: 100%;
+    }
+    .product-card.bundagizi::before { background: var(--green); }
+    .product-card.asistendiet::before { background: var(--lime); }
+    .product-card.minumobat::before { background: var(--blue); }
+
+    /* Gradient glow on hover */
+    .product-card.bundagizi:hover {
+      box-shadow: 0 8px 30px rgba(82, 183, 136, 0.15), 0 20px 50px rgba(82, 183, 136, 0.08);
+    }
+    .product-card.asistendiet:hover {
+      box-shadow: 0 8px 30px rgba(167, 228, 107, 0.2), 0 20px 50px rgba(167, 228, 107, 0.1);
+    }
+    .product-card.minumobat:hover {
+      box-shadow: 0 8px 30px rgba(47, 128, 237, 0.15), 0 20px 50px rgba(47, 128, 237, 0.08);
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      border-color: transparent;
+    }
+
+    .product-card-body {
+      padding: 32px 28px 0;
+    }
+    .product-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+    .bundagizi .product-icon { background: var(--green-light); }
+    .asistendiet .product-icon { background: #EFFBD4; }
+    .minumobat .product-icon { background: var(--blue-light); }
+
+    .product-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
+    }
+    .product-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+      letter-spacing: 0.2px;
+    }
+    .product-features {
+      list-style: none;
+      margin-bottom: 0;
+    }
+    .product-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 5px 0;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+    .product-features li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .bundagizi .product-features li::before { background: var(--green); }
+    .asistendiet .product-features li::before { background: var(--lime); }
+    .minumobat .product-features li::before { background: var(--blue); }
+
+    /* Mini preview mockup */
+    .product-preview {
+      margin: 20px 16px 0;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+    .preview-bar {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .preview-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gray-300);
+    }
+    .preview-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px 0;
+      color: var(--gray-500);
+      font-size: 11px;
+    }
+    .preview-row strong {
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+    .preview-bar-chart {
+      display: flex;
+      gap: 3px;
+      align-items: flex-end;
+      height: 24px;
+    }
+    .preview-bar-chart span {
+      width: 8px;
+      border-radius: 2px 2px 0 0;
+    }
+    .bundagizi .preview-bar-chart span { background: var(--green); }
+    .asistendiet .preview-bar-chart span { background: var(--lime); }
+    .minumobat .preview-bar-chart span { background: var(--blue); }
+    .preview-chat-bubble {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 6px 10px;
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--gray-600);
+      max-width: 90%;
+    }
+    .preview-time-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 3px 0;
+      font-size: 11px;
+    }
+    .preview-time {
+      color: var(--gray-400);
+      font-weight: 500;
+      min-width: 36px;
+    }
+    .preview-check {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .preview-check.done { background: var(--green); }
+    .preview-check.pending { background: var(--gray-200); }
+
+    .product-card-footer {
+      padding: 16px 28px 24px;
+      margin-top: auto;
+    }
+    .product-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: gap 0.25s;
+    }
+    .bundagizi .product-link { color: var(--green); }
+    .asistendiet .product-link { color: #6AAF2B; }
+    .minumobat .product-link { color: var(--blue); }
+    .product-card:hover .product-link { gap: 10px; }
+
+    .product-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .product-status::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+    .bundagizi .product-status {
+      background: var(--green-light);
+      color: var(--green-dark);
+    }
+    .bundagizi .product-status::before { background: var(--green); }
+    .asistendiet .product-status {
+      background: #EFFBD4;
+      color: #4A7A1A;
+    }
+    .asistendiet .product-status::before { background: var(--lime); }
+    .minumobat .product-status {
+      background: var(--blue-light);
+      color: #1A5FB4;
+    }
+    .minumobat .product-status::before { background: var(--blue); }
+
+    /* ── Tagline Section ── */
+    .tagline-section {
+      padding: 80px 32px 100px;
+      text-align: center;
+      position: relative;
+    }
+    .tagline-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .tagline-section h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      color: var(--green-dark);
+      line-height: 1.3;
+      letter-spacing: -0.5px;
+    }
+    .tagline-section h2 span { color: var(--green); }
+    .tagline-section p {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin: 20px auto 0;
+      line-height: 1.7;
+    }
+
+    /* ── Mission Section ── */
+    .mission {
+      padding: 100px 32px 120px;
+      background: var(--green-dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .mission::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+    .mission-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .mission-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--green);
+      margin-bottom: 24px;
+    }
+    .mission h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.35;
+      letter-spacing: -0.5px;
+      max-width: 680px;
+      margin: 0 auto 56px;
+    }
+    .mission-lifecycle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+    .mission-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 20px 24px;
+      position: relative;
+    }
+    .mission-item-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s;
+    }
+    .mission-item:hover .mission-item-icon {
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-2px);
+    }
+    .mission-item-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      white-space: nowrap;
+    }
+    .mission-connector {
+      width: 32px;
+      height: 1px;
+      background: rgba(255,255,255,0.15);
+      margin-top: -28px;
+    }
+    @media (max-width: 768px) {
+      .mission-lifecycle { gap: 8px; }
+      .mission-connector { width: 16px; }
+      .mission-item { padding: 12px 14px; }
+    }
+
+    /* ── Roadmap ── */
+    .roadmap {
+      padding: 100px 32px 120px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .roadmap-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .roadmap-header h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+    .roadmap-header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    /* Timeline style */
+    .timeline {
+      position: relative;
+      padding-left: 0;
+    }
+    .timeline-section {
+      margin-bottom: 48px;
+    }
+    .timeline-year {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .timeline-year::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--gray-200);
+    }
+    .timeline-track {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      position: relative;
+    }
+    .timeline-track::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      right: 24px;
+      height: 2px;
+      background: var(--gray-200);
+    }
+    .timeline-node {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      border: 2px solid var(--white);
+      box-shadow: var(--shadow-md);
+      transition: all 0.3s;
+    }
+    .timeline-node:hover .timeline-dot {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+    .timeline-dot.done { background: var(--green-light); }
+    .timeline-dot.coming { background: var(--gray-100); }
+    .timeline-dot.future { background: #FFF3E6; }
+    .timeline-node h4 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 4px;
+    }
+    .timeline-node p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .timeline-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.3px;
+    }
+    .badge-done { background: var(--green-light); color: var(--green-dark); }
+    .badge-soon { background: #FFF3E6; color: #C47A20; }
+    .badge-future { background: var(--gray-100); color: var(--gray-500); }
+
+    /* Future row */
+    .future-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .future-chip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 20px;
+      background: var(--white);
+      border: 1px dashed var(--gray-300);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .future-chip:hover {
+      border-color: var(--gray-400);
+      box-shadow: var(--shadow-sm);
+    }
+    .future-chip-icon {
+      font-size: 20px;
+    }
+    .future-chip-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+    .future-chip-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 64px 32px 40px;
+      background: var(--white);
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer-brand h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 12px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--gray-500);
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 14px;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--green); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 48px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-bottom-text {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+    .footer-bottom-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-bottom-links a {
+      font-size: 13px;
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-bottom-links a:hover { color: var(--green); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 48px;
+      }
+      .hero-left { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-right { order: -1; }
+      .ecosystem-svg { max-width: 300px; }
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+    @media (max-width: 768px) {
+      .nav-inner { padding: 0 20px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding: 100px 20px 60px; min-height: auto; }
+      .products { padding: 60px 20px 80px; }
+      .products-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .product-card-body { padding: 24px 20px 0; }
+      .product-card-footer { padding: 12px 20px 20px; }
+      .tagline-section { padding: 60px 20px 80px; }
+      .mission { padding: 80px 20px; }
+      .roadmap { padding: 60px 20px 80px; }
+      .timeline-track {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+      }
+      .timeline-track::before {
+        top: 0;
+        bottom: 0;
+        left: 24px;
+        right: auto;
+        width: 2px;
+        height: auto;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+      .trust-inner { gap: 24px; }
+      .trust-items { gap: 20px; }
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(-24px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .anim-fade { opacity: 0; animation: fadeIn 0.6s ease forwards; }
+    .anim-fadeup { opacity: 0; animation: fadeUp 0.7s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    .anim-scale { opacity: 0; animation: scaleIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+    .anim-slide { opacity: 0; animation: slideRight 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+    .delay-6 { animation-delay: 0.6s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .anim-fade, .anim-fadeup, .anim-scale, .anim-slide {
+        animation: none; opacity: 1;
+      }
+      .eco-line { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <div class="nav-logo-mark">🧬</div>
+        <div class="nav-logo-text">Bundagizi<span>Labs</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="#products">Products</a>
+        <a href="#mission">Mission</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="mailto:halo@bundagizi.com" class="nav-cta">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-badge anim-fade">Healthcare AI</div>
+        <h1 class="anim-fadeup delay-1">
+          Building AI Healthcare<br>
+          Assistants for <span>Indonesian</span><br>
+          Families.
+        </h1>
+        <p class="hero-desc anim-fadeup delay-2">
+          Tiga produk. Satu ekosistem. Dirancang untuk menjawab kebutuhan kesehatan keluarga Indonesia — dari ibu dan anak hingga lansia.
+        </p>
+        <div class="hero-actions anim-fadeup delay-3">
+          <a href="#products" class="btn-primary">
+            Explore Ecosystem
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="mailto:halo@bundagizi.com" class="btn-secondary">Contact Us</a>
+        </div>
+      </div>
+
+      <div class="hero-right anim-scale delay-2">
+        <svg class="ecosystem-svg" viewBox="0 0 440 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Connection lines -->
+          <line class="eco-line" x1="220" y1="140" x2="110" y2="280" stroke="#52B788" stroke-width="1.5" opacity="0.3"/>
+          <line class="eco-line" x1="220" y1="140" x2="220" y2="280" stroke="#A7E46B" stroke-width="1.5" opacity="0.3"/>
+          <line class="eco-line" x1="220" y1="140" x2="330" y2="280" stroke="#2F80ED" stroke-width="1.5" opacity="0.3"/>
+
+          <!-- Orbit ring -->
+          <ellipse cx="220" cy="220" rx="150" ry="100" fill="none" stroke="#E9ECEF" stroke-width="1" stroke-dasharray="4 6"/>
+
+          <!-- Center: Labs -->
+          <g class="eco-node">
+            <rect class="eco-circle" x="188" y="108" width="64" height="64" rx="18" fill="#1B4332"/>
+            <text x="220" y="136" text-anchor="middle" fill="white" font-size="22" font-family="Inter, sans-serif">🧬</text>
+            <text x="220" y="156" text-anchor="middle" fill="white" font-size="9" font-weight="600" font-family="Inter, sans-serif">LABS</text>
+          </g>
+
+          <!-- Left: BundaGizi -->
+          <g class="eco-node">
+            <rect class="eco-circle" x="74" y="272" width="72" height="72" rx="18" fill="#D8F3DC" stroke="#52B788" stroke-width="1.5"/>
+            <text x="110" y="304" text-anchor="middle" font-size="26" font-family="Inter, sans-serif">👶</text>
+            <text x="110" y="328" text-anchor="middle" fill="#1B4332" font-size="10" font-weight="600" font-family="Inter, sans-serif">BundaGizi</text>
+          </g>
+
+          <!-- Center bottom: AsistenDiet -->
+          <g class="eco-node">
+            <rect class="eco-circle" x="184" y="272" width="72" height="72" rx="18" fill="#EFFBD4" stroke="#A7E46B" stroke-width="1.5"/>
+            <text x="220" y="304" text-anchor="middle" font-size="26" font-family="Inter, sans-serif">🥗</text>
+            <text x="220" y="328" text-anchor="middle" fill="#4A7A1A" font-size="10" font-weight="600" font-family="Inter, sans-serif">AsistenDiet</text>
+          </g>
+
+          <!-- Right: MinumObat -->
+          <g class="eco-node">
+            <rect class="eco-circle" x="294" y="272" width="72" height="72" rx="18" fill="#EAF4FF" stroke="#2F80ED" stroke-width="1.5"/>
+            <text x="330" y="304" text-anchor="middle" font-size="26" font-family="Inter, sans-serif">💊</text>
+            <text x="330" y="328" text-anchor="middle" fill="#1A5FB4" font-size="10" font-weight="600" font-family="Inter, sans-serif">MinumObat</text>
+          </g>
+
+          <!-- Decorative dots -->
+          <circle cx="60" cy="160" r="3" fill="#52B788" opacity="0.2"/>
+          <circle cx="380" cy="180" r="3" fill="#2F80ED" opacity="0.2"/>
+          <circle cx="340" cy="120" r="2" fill="#A7E46B" opacity="0.2"/>
+          <circle cx="100" cy="220" r="2" fill="#F4A261" opacity="0.15"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust -->
+  <section class="trust">
+    <div class="trust-inner">
+      <span class="trust-label">Built for Indonesia</span>
+      <div class="trust-items">
+        <div class="trust-item">
+          <div class="trust-icon">🇮🇩</div>
+          <span>Indonesian-first</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">📋</div>
+          <span>Evidence-based</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏛️</div>
+          <span>WHO Standards</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🩺</div>
+          <span>IDAI Guidelines</span>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🏥</div>
+          <span>Kemenkes</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="products" id="products">
+    <div class="section-header anim-fadeup">
+      <h2>Our Products</h2>
+      <p>Setiap produk melayani kebutuhan kesehatan yang berbeda, dengan pengalaman yang konsisten.</p>
+    </div>
+
+    <div class="products-grid">
+
+      <a href="https://bundagizi.com" class="product-card bundagizi" target="_blank">
+        <div class="product-card-body">
+          <div class="product-icon">👶</div>
+          <span class="product-status">Live</span>
+          <h3>BundaGizi</h3>
+          <p class="product-subtitle">AI untuk MPASI & Anak</p>
+          <ul class="product-features">
+            <li>Chat WhatsApp</li>
+            <li>Dashboard Tumbuh Kembang</li>
+            <li>Monitoring Gizi</li>
+          </ul>
+          <div class="product-preview">
+            <div class="preview-bar">
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+            </div>
+            <div class="preview-row">
+              <span>Growth Chart</span>
+              <div class="preview-bar-chart">
+                <span style="height:12px;opacity:0.5"></span>
+                <span style="height:16px;opacity:0.6"></span>
+                <span style="height:14px;opacity:0.7"></span>
+                <span style="height:20px;opacity:0.8"></span>
+                <span style="height:24px;opacity:1"></span>
+              </div>
+            </div>
+            <div class="preview-chat-bubble">💬 "Berapa protein ayam untuk bayi 8 bulan?"</div>
+          </div>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-link">
+            Open
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="https://asistendiet.com" class="product-card asistendiet" target="_blank">
+        <div class="product-card-body">
+          <div class="product-icon">🥗</div>
+          <span class="product-status">Coming Soon</span>
+          <h3>AsistenDiet</h3>
+          <p class="product-subtitle">AI Diet Assistant</p>
+          <ul class="product-features">
+            <li>Meal Planning</li>
+            <li>Calorie Tracking</li>
+            <li>Weight Monitoring</li>
+          </ul>
+          <div class="product-preview">
+            <div class="preview-bar">
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+            </div>
+            <div class="preview-row">
+              <span>Today</span>
+              <strong>1,320 / 2,000 kcal</strong>
+            </div>
+            <div style="height:4px;background:var(--gray-200);border-radius:4px;margin:4px 0;overflow:hidden">
+              <div style="height:100%;width:66%;background:var(--lime);border-radius:4px"></div>
+            </div>
+            <div class="preview-row">
+              <span>Protein 68g</span>
+              <span>Fat 42g</span>
+              <span>Carb 145g</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-link">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a href="https://minumobat.com" class="product-card minumobat" target="_blank">
+        <div class="product-card-body">
+          <div class="product-icon">💊</div>
+          <span class="product-status">Coming Soon</span>
+          <h3>MinumObat</h3>
+          <p class="product-subtitle">Medication Companion</p>
+          <ul class="product-features">
+            <li>Reminder</li>
+            <li>Drug Interaction Check</li>
+            <li>Medication History</li>
+          </ul>
+          <div class="product-preview">
+            <div class="preview-bar">
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+              <div class="preview-dot"></div>
+            </div>
+            <div class="preview-time-row">
+              <span class="preview-time">08:00</span>
+              <span class="preview-check done"></span>
+              <span>Metformin 500mg</span>
+            </div>
+            <div class="preview-time-row">
+              <span class="preview-time">12:00</span>
+              <span class="preview-check pending"></span>
+              <span>Vitamin D</span>
+            </div>
+            <div class="preview-time-row">
+              <span class="preview-time">20:00</span>
+              <span class="preview-check pending"></span>
+              <span>Amlodipine 5mg</span>
+            </div>
+          </div>
+        </div>
+        <div class="product-card-footer">
+          <span class="product-link">
+            Learn More
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Tagline -->
+  <section class="tagline-section">
+    <h2 class="anim-fadeup">
+      One Account.<br>
+      <span>One AI.</span><br>
+      Three Healthcare Products.
+    </h2>
+    <p class="anim-fadeup delay-1">
+      Satu akun untuk semua. Berbagi pola desain, pengalaman pengguna, dan fondasi teknologi yang konsisten.
+    </p>
+  </section>
+
+  <!-- Mission -->
+  <section class="mission" id="mission">
+    <div class="mission-inner">
+      <div class="mission-label anim-fade">Our Mission</div>
+      <h2 class="anim-fadeup delay-1">
+        Building AI companions that help every Indonesian family live healthier lives.
+      </h2>
+      <div class="mission-lifecycle anim-fadeup delay-2">
+        <div class="mission-item">
+          <div class="mission-item-icon">👶</div>
+          <span class="mission-item-label">Childhood</span>
+        </div>
+        <div class="mission-connector"></div>
+        <div class="mission-item">
+          <div class="mission-item-icon">🥗</div>
+          <span class="mission-item-label">Adulthood</span>
+        </div>
+        <div class="mission-connector"></div>
+        <div class="mission-item">
+          <div class="mission-item-icon">💊</div>
+          <span class="mission-item-label">Chronic Care</span>
+        </div>
+        <div class="mission-connector"></div>
+        <div class="mission-item">
+          <div class="mission-item-icon">🩷</div>
+          <span class="mission-item-label">Women's Health</span>
+        </div>
+        <div class="mission-connector"></div>
+        <div class="mission-item">
+          <div class="mission-item-icon">🧠</div>
+          <span class="mission-item-label">Mental Health</span>
+        </div>
+        <div class="mission-connector"></div>
+        <div class="mission-item">
+          <div class="mission-item-icon">🤝</div>
+          <span class="mission-item-label">Elder Care</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="roadmap" id="roadmap">
+    <div class="roadmap-header anim-fadeup">
+      <h2>Roadmap</h2>
+      <p>Dari satu produk hingga ekosistem kesehatan lengkap</p>
+    </div>
+
+    <div class="timeline">
+      <!-- 2026 -->
+      <div class="timeline-section anim-slide delay-1">
+        <div class="timeline-year">2026</div>
+        <div class="timeline-track">
+          <div class="timeline-node">
+            <div class="timeline-dot done">👶</div>
+            <h4>BundaGizi</h4>
+            <p>MPASI & Tumbuh Kembang</p>
+            <span class="timeline-badge badge-done">✓ Live</span>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot coming">🥗</div>
+            <h4>AsistenDiet</h4>
+            <p>AI Diet & Meal Planning</p>
+            <span class="timeline-badge badge-soon">Coming Soon</span>
+          </div>
+          <div class="timeline-node">
+            <div class="timeline-dot coming">💊</div>
+            <h4>MinumObat</h4>
+            <p>Medication Companion</p>
+            <span class="timeline-badge badge-soon">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Future -->
+      <div class="timeline-section anim-slide delay-3">
+        <div class="timeline-year">Future</div>
+        <div class="future-row">
+          <div class="future-chip">
+            <span class="future-chip-icon">🩷</span>
+            <div>
+              <div class="future-chip-text">Women's Health</div>
+              <div class="future-chip-sub">Cycle & fertility tracking</div>
+            </div>
+          </div>
+          <div class="future-chip">
+            <span class="future-chip-icon">🧠</span>
+            <div>
+              <div class="future-chip-text">Mental Health</div>
+              <div class="future-chip-sub">Mood & wellness companion</div>
+            </div>
+          </div>
+          <div class="future-chip">
+            <span class="future-chip-icon">🤝</span>
+            <div>
+              <div class="future-chip-text">Elder Care</div>
+              <div class="future-chip-sub">Lansia care & medication</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Bundagizi Labs</h3>
+        <p>Building AI Healthcare Assistants for Indonesian Families.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="https://bundagizi.com" target="_blank">BundaGizi</a></li>
+          <li><a href="https://asistendiet.com" target="_blank">AsistenDiet</a></li>
+          <li><a href="https://minumobat.com" target="_blank">MinumObat</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#mission">About</a></li>
+          <li><a href="mailto:halo@bundagizi.com">Contact</a></li>
+          <li><a href="#roadmap">Roadmap</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Documentation</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-bottom-text">© 2026 Bundagizi Labs. All rights reserved.</span>
+      <div class="footer-bottom-links">
+        <a href="mailto:halo@bundagizi.com">halo@bundagizi.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          // Re-trigger animation by removing and re-adding class
+          const classes = el.className;
+          el.style.animationPlayState = 'running';
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    // Observe elements that should animate on scroll
+    document.querySelectorAll('.product-card, .timeline-section, .trust-inner, .tagline-section h2, .tagline-section p, .mission-label, .mission h2, .mission-lifecycle').forEach(el => {
+      // Set initial state for scroll-animated elements
+      if (!el.closest('.hero')) {
+        el.style.opacity = '0';
+        observer.observe(el);
+      }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
